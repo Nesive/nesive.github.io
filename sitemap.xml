@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.nesive.com/changelog/index.html</loc>
+    
+    <lastmod>2022-04-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.nesive.com/b25d002f.html</loc>
     
     <lastmod>2022-04-09</lastmod>
@@ -48,15 +57,6 @@
   
   <url>
     <loc>https://blog.nesive.com/about/index.html</loc>
-    
-    <lastmod>2022-04-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.nesive.com/changelog/index.html</loc>
     
     <lastmod>2022-04-09</lastmod>
     
