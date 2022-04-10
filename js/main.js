@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  let blogNameWidth, menusWidth, searchWidth, $nav, hideMenuIndex
+  let blogNameWidth, menusWidth, searchWidth, $nav
   let mobileSidebarOpen = false
 
   const adjustMenu = (init) => {
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $nav = document.getElementById('nav')
     }
 
+    let hideMenuIndex = ''
     if (window.innerWidth < 768) hideMenuIndex = true
     else hideMenuIndex = blogNameWidth + menusWidth + searchWidth > $nav.offsetWidth - 120
 
@@ -259,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 當滾動條小于 56 的時候
     if (document.body.scrollHeight <= innerHeight) {
-      $rightside.style.cssText = 'opacity: 1; transform: translateX(-38px)'
+      $rightside.style.cssText = 'opacity: 1; transform: translateX(-58px)'
       return
     }
 
@@ -360,7 +361,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // toc元素點擊
       $cardToc.addEventListener('click', e => {
         e.preventDefault()
-        const $target = e.target.classList.contains('toc-link')
+        const target = e.target.classList
+        if (target.contains('toc-content')) return
+        const $target = target.contains('toc-link')
           ? e.target
           : e.target.parentElement
         btf.scrollToDest(btf.getEleTop(document.getElementById(decodeURI($target.getAttribute('href')).replace('#', ''))), 300)
@@ -612,13 +615,9 @@ document.addEventListener('DOMContentLoaded', function () {
       $hideInline.forEach(function (item) {
         item.addEventListener('click', function (e) {
           const $this = this
-          const $hideContent = $this.nextElementSibling
-          $this.classList.toggle('open')
-          if ($this.classList.contains('open')) {
-            if ($hideContent.querySelectorAll('.fj-gallery').length > 0) {
-              btf.initJustifiedGallery($hideContent.querySelectorAll('.fj-gallery'))
-            }
-          }
+          $this.classList.add('open')
+          const $fjGallery = $this.nextElementSibling.querySelectorAll('.fj-gallery')
+          $fjGallery.length && btf.initJustifiedGallery($fjGallery)
         })
       })
     }
@@ -734,7 +733,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const unRefreshFn = function () {
     window.addEventListener('resize', () => {
       adjustMenu(false)
-      hideMenuIndex && mobileSidebarOpen && sidebarFn.close()
+      btf.isHidden(document.getElementById('toggle-menu')) && mobileSidebarOpen && sidebarFn.close()
     })
 
     document.getElementById('menu-mask').addEventListener('click', e => { sidebarFn.close() })
